@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="zh-CN" data-theme="dsrk"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>归档 | 多囤点过冬</title><meta name="keywords" content="云溪"><meta name="author" content="云溪"><meta name="copyright" content="云溪"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="归档"><meta name="application-name" content="归档"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="website"><meta property="og:title" content="归档"><meta property="og:url" content="http://example.com/archives/index.html"><meta property="og:site_name" content="多囤点过冬"><meta property="og:description" content="归档"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="http://example.com/ywzb.png"><meta property="article:author" content="云溪"><meta property="article:tag" content="云溪"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="http://example.com/ywzb.png"><meta name="description" content="归档"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/archives/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   linkPageTop: undefined,
-  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  peoplecanvas: {"enable":true,"img":"动保.png"},
   postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
   diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 离开一下","backTitle":"♪(^∇^*)欢迎肥来！"},
   LA51: undefined,
@@ -59,7 +59,7 @@
   isHome: false,
   isHighlightShrink: true,
   isToc: false,
-  postUpdate: '2024-08-28 18:54:54',
+  postUpdate: '2024-08-28 20:28:54',
   postMainColor: '',
 }</script><noscript><style type="text/css">
   #nav {
@@ -298,8 +298,8 @@ queueMicrotask(() => {
   setTimeout(
     console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
   );
-});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="anzhiyu"></div><script>window.addEventListener('load', () => {
-  const changeContent = content => {
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="anzhiyu"></div><script src="https://cdn.cbd.int/blueimp-md5@2.19.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
     if (content === '') return content
 
     content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
@@ -311,6 +311,13 @@ queueMicrotask(() => {
       content = content.substring(0,150) + '...'
     }
     return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=mp'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
   }
 
   const generateHtml = array => {
@@ -340,31 +347,41 @@ queueMicrotask(() => {
     window.pjax && window.pjax.refresh($dom)
   }
 
-  const getComment = async () => {
-    try {
-      const res = await fetch('https://pr-qba11grv0-1401518567s-projects.vercel.app/api/comment?type=recent&count=6', { method: 'GET' })
-      const result = await res.json()
-      const walineArray = result.data.map(e => {
-        return {
-          'content': changeContent(e.comment),
-          'avatar': e.avatar,
-          'nick': e.nick,
-          'url': e.url + '#' + e.objectId,
-          'date': e.time || e.insertedAt
-        }
-      })
-      saveToLocal.set('waline-newest-comments', JSON.stringify(walineArray), 10/(60*24))
-      generateHtml(walineArray)
-    } catch (err) {
-      console.error(err)
-      const $dom = document.querySelector('#card-newest-comments .aside-list')
-      $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+  const getComment = () => {
+    const serverURL = 'https://P6JCwqeJ.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'P6JCwqeJTo7hcsCatb2SDIpl-MdYXbMMI',
+        "X-LC-Key": 'vCb6Wt3Wy2FIzRQl6lIEGseQ',
+        "Content-Type": "application/json"
+      },
     }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      }) 
   }
 
   const newestCommentInit = () => {
     if (document.querySelector('#card-newest-comments .aside-list')) {
-      const data = saveToLocal.get('waline-newest-comments')
+      const data = saveToLocal.get('valine-newest-comments')
       if (data) {
         generateHtml(JSON.parse(data))
       } else {
