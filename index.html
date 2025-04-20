@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+        <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui" />
+    <title>群星在聆听</title>
+<link rel='stylesheet' id='puma-css'  href='https://yuwenzhanbai.xyz/styles/main.css' type='text/css' media='screen' />
+<link rel='stylesheet' id='puma-css'  href='https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css' media='screen' />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<script type='text/javascript' src='https://yuwenzhanbai.xyz/media/scripts/jquery.js'></script>
+<script type='text/javascript' src='https://yuwenzhanbai.xyz/media/scripts/jquery-migrate.min.js'></script>
+        <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
+         
+</head>
+<body class="home blog">
+	<!--加入跟随滑动的顶部-->
+	<header id="masthead" class="site-header" role="banner">
+		<div class="site-branding">
+			<h1 class="site-title">
+				<a href="https://yuwenzhanbai.xyz" title="群星在聆听">群星在聆听</a>
+			</h1>
+		</div>
+
+		<a class="primary-nav-trigger" href="javascript:void(0)">
+			<span class="menu-icon"></span>
+		</a>
+		
+	</header>
+    	<div class="site-navigation-wrapper">
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<ul class="primary-nav">
+                    
+				<li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-30"><a title="首页" href="/">首页</a></li>
+                
+				<li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-30"><a title="归档" href="/archives">归档</a></li>
+                
+				<li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-30"><a title="标签" href="/tags">标签</a></li>
+                
+	
+			</ul>
+		</nav>			
+	</div>
+	<!--跟随滑动的顶部结束-->
+	<!--大屏banner开始-->
+    
+	<div class="site-banner u-textAlignCenter hasImage" style="background-image:url(https://zhisong.oss-cn-hangzhou.aliyuncs.com/tu/Image_30961336695323.png)">
+		<div class="fade-cover"></div>
+		<div class="banner-txt">
+			<h2>群星在聆听</h2>
+		</div>
+		<div class="banner-txt">
+			<p>清新而寒冷的空气在欢呼</p>
+		</div>	
+	</div>
+	<!--大屏banner结束-->
+	<div class="site-main">
+	<div class="surface-content">    <main class="main-content">
+        <section class="blockGroup">
+                
+</section>
+
+    </main>
+</div></div>
+<script type="text/javascript">
+//点击加载更多
+jQuery(document).ready(function($) {
+    //点击下一页的链接(即那个a标签)
+    $(' .button').click(function() {
+        $this = $(this);
+        $this.addClass('loading').text('正在努力加载'); //给a标签加载一个loading的class属性，用来添加加载效果
+        var href = $this.attr('href'); //获取下一页的链接地址
+        if (href != undefined) { //如果地址存在
+            $.ajax({ //发起ajax请求
+                url: href,
+                //请求的地址就是下一页的链接
+                type: 'get',
+                //请求类型是get
+                error: function(request) {
+                    //如果发生错误怎么处理
+                },
+                success: function(data) { //请求成功
+                    $this.removeClass('loading').text('点击查看更多'); //移除loading属性
+                    var $res = $(data).find('.block--list '); //从数据中挑出文章数据，请根据实际情况更改
+                    $('.blockGroup').append($res.fadeIn(500)); //将数据加载加进posts-loop的标签中。
+                    var newhref = $(data).find(' .button').attr('href'); //找出新的下一页链接
+                    if (newhref != undefined) {
+                        $('.button').attr('href', newhref);
+                    } else {
+                        $('.button').remove(); //如果没有下一页了，隐藏
+                    }
+                }
+            });
+        }
+        return false;
+    });
+});
+</script>
+	<footer class="site-footer u-textAlignCenter">
+    	<div class="footer-branding">
+            <a href="https://yuwenzhanbai.xyz" title="群星在聆听">群星在聆听</a>
+									<p class="site-description">芝松</p>
+			         </div>
+		 <hr />
+		 <div class="social-links">
+		                       
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+				</div>
+        <div class="footer-copy">
+                
+        </div>
+
+    </footer>
+	<div class="back-to-top u-hide" onclick="backToTop();"><i class="iconfont icon-xiangshang"></i></div>
+
+<script type='text/javascript' src='https://yuwenzhanbai.xyz/media/scripts/main.js'></script>
+</body>
+</html>
